@@ -73,11 +73,12 @@ function parseDataIntoTable(oData) {
 
 }
 
+getParams();
+
 fetch(`data/${sGuild}GuildData.json`)
 .then(res => res.json())
 .then(data => {
-    getParams();
     document.getElementById("logo").src = `res/logos/${sGuild}.png`
-    document.getElementById("dUpdated").appendChild(document.createTextNode(`Last updated on: ${new Date(oData["t"] * 1000).toLocaleDateString()}`));
+    document.getElementById("dUpdated").appendChild(document.createTextNode(`Last updated on: ${new Date(data["t"] * 1000).toLocaleDateString()}`));
     parseDataIntoTable(data);
 });
