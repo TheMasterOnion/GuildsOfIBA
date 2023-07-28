@@ -35,11 +35,19 @@ td {
   border-style: solid;
 }
 
-.alignLastUpdated {
+.aligntTableToolbar {
   margin: 0 auto;
-  justify-content: right;
   width: 75%;
   display: flex;
   padding-bottom: 10px;
   padding-top: 10px;
+}
+
+.aligntTableToolbar div {
+  width: 50%;
+}
+
+#dTimestamp {
+  display: flex;
+  justify-content: right;
 }

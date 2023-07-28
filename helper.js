@@ -77,28 +77,19 @@ const oRanks = {
 sStoredDir = "asc";
 iStoredIndex = -1;
 
-function sortTable(oTable, iIndex) {
+function sortTable(oTable, iIndex, fHandleOrder, fHandleValues) {
     var oTable,
         rows,
         switching = true,
         shouldSwitch;
 
+    //Invert the sorting order
     if (iIndex === iStoredIndex) {
         sStoredDir = (sStoredDir === "asc" ? "desc" : "asc");
     } else {
         iStoredIndex = iIndex;
-        sStoredDir = "asc";
-        switch (iIndex) {
-            case 0:
-            case 1:
-            case 2:
-                sStoredDir = "asc";
-                break;
-            default:
-                sStoredDir = "desc";
-                break;
-
-        }
+        //Calling the handler function so we can change the default behaviour
+        sStoredDir = fHandleOrder();
     }
 
     /* Make a loop that will continue until
@@ -119,24 +110,8 @@ function sortTable(oTable, iIndex) {
             /* Check if the two rows should switch place,
               based on the direction, asc or desc: */
 
-            //Depending on collumn we might need to sort it on other properties
-            switch (iIndex) {
-                case 0:
-                case 1:
-                case 5:
-                    var firstValue = x.firstElementChild.alt * 1;
-                    var secondValue = y.firstElementChild.alt * 1;
-                    break;
-                case 2:
-                    var firstValue = x.innerHTML.toLowerCase();
-                    var secondValue = y.innerHTML.toLowerCase();
-                    break;
-                case 3:
-                case 4:
-                    var firstValue = x.innerHTML * 1;
-                    var secondValue = y.innerHTML * 1;
-                    break;
-            }
+            //Depending on collumn we might need to sort it on other properties so we call the handler function
+            var [firstValue, secondValue] = fHandleValues(x, y);
 
             if (sStoredDir == "asc") {
                 if (firstValue > secondValue) {
