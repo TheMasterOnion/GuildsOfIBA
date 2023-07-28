@@ -12,7 +12,7 @@ function getParams() {
     });
 }
 
-function parseDataIntoTable() {
+function parseDataIntoTable(oData) {
     const aProperties = ["g", "c", "a", "d", "e", "f"];
     const aHeader = ["Rank", "Class", "Name", "Level", "GP", "Bonus"];
 
@@ -73,7 +73,11 @@ function parseDataIntoTable() {
 
 }
 
-getParams();
-document.getElementById("logo").src = `res/logos/${sGuild}.png`
-document.getElementById("dUpdated").appendChild(document.createTextNode(`Last updated on: ${new Date(oData["t"] * 1000).toLocaleDateString()}`));
-parseDataIntoTable();
+fetch(`data/${sGuild}GuildData.json`)
+.then(res => res.json())
+.then(data => {
+    getParams();
+    document.getElementById("logo").src = `res/logos/${sGuild}.png`
+    document.getElementById("dUpdated").appendChild(document.createTextNode(`Last updated on: ${new Date(oData["t"] * 1000).toLocaleDateString()}`));
+    parseDataIntoTable(data);
+});
