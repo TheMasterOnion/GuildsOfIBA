@@ -17,8 +17,8 @@ function getParams() {
 //Parse the information into a table
 function parseDataIntoTable(oData) {
     //Header and json properties
-    const aProperties = ["name", "oldGP", "newGP", "loggedIn", "notes"];
-    const aHeader = ["Name", "Old GP", "New GP", "Logged In?", "Notes"];
+    const aProperties = ["name", "oldGP", "newGP", "gpChange","loggedIn", "notes"];
+    const aHeader = ["Name", "Old GP", "New GP", "GP Change","Logged In?", "Notes"];
 
     //Create the table
     const oTable = document.createElement("table");
@@ -34,6 +34,7 @@ function parseDataIntoTable(oData) {
             switch(iIndex){
                 case 1:
                 case 2:
+                case 3:
                     return "desc";
                 default:
                     return "asc";
@@ -42,12 +43,14 @@ function parseDataIntoTable(oData) {
         var fHandleValues = function (x, y) {
             switch (iIndex) {
                 case 0:
-                case 3:
                 case 4:
+                case 5:
                     return [x.innerHTML.toLowerCase(), y.innerHTML.toLowerCase()];
                 case 1:
                 case 2:
                     return [x.innerHTML * 1, y.innerHTML * 1];
+                case 3:
+                    return [x.children[0].dataset.value * 1, y.children[0].dataset.value * 1];
             }
         }
 
@@ -67,9 +70,22 @@ function parseDataIntoTable(oData) {
             switch (i) {
                 case 1:
                 case 2:
-                case 3:
+                case 4:
                     oTd.style = "text-align: center";
                     oTd.appendChild(document.createTextNode(`${sVal}`));
+                    break;
+                case 3:
+                    oTd.style = "text-align: center";
+                    const oSpanGPChange = document.createElement("span");
+
+                    //Check if value is bigger than 0 for the GP change
+                    const bGP = (sVal * 1) > 0;
+
+                    oSpanGPChange.classList.add(bGP ? "positiveValue" : "negativeValue");
+                    oSpanGPChange.appendChild(document.createTextNode(bGP ? `+${sVal} GP` : `${sVal} GP`));
+                    oSpanGPChange.dataset.value = sVal;
+                    
+                    oTd.appendChild(oSpanGPChange);
                     break;
                 default:
                     oTd.appendChild(document.createTextNode(`${sVal}`));

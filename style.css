@@ -27,7 +27,7 @@ body {
   justify-content: center;
 }
 
-#dGP table,
+.tableCustomizations table,
 td {
   border-collapse: collapse;
   border-radius: 1px;
@@ -50,4 +50,14 @@ td {
 #dTimestamp {
   display: flex;
   justify-content: right;
+}
+
+.positiveValue {
+  font-weight: bold;
+  color: green;
+}
+
+.negativeValue {
+  font-weight: bold;
+  color: red;
 }
