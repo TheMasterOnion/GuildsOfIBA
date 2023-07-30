@@ -61,3 +61,8 @@ td {
   font-weight: bold;
   color: red;
 }
+
+.mediumValue {
+  font-weight: bold;
+  color: yellow;
+}

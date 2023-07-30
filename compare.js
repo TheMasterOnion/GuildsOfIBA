@@ -77,12 +77,22 @@ function parseDataIntoTable(oData) {
                 case 3:
                     oTd.style = "text-align: center";
                     const oSpanGPChange = document.createElement("span");
+                    const iVal = sVal * 1;
 
-                    //Check if value is bigger than 0 for the GP change
-                    const bGP = (sVal * 1) > 0;
+                    // If it's less or equal than 0, paint it red
+                    // If it's less or equal than 240, paint it yellow
+                    // Else, paint it green
+                    if (iVal <= 0) {
+                        oSpanGPChange.classList.add("negativeValue");
+                        oSpanGPChange.appendChild(document.createTextNode(`${sVal} GP`));
+                    } else if (iVal > 0 && iVal <= 240) {
+                        oSpanGPChange.classList.add("mediumValue");
+                        oSpanGPChange.appendChild(document.createTextNode(`+${sVal} GP`));
+                    } else {
+                        oSpanGPChange.classList.add("positiveValue");
+                        oSpanGPChange.appendChild(document.createTextNode(`+${sVal} GP`));
+                    }
 
-                    oSpanGPChange.classList.add(bGP ? "positiveValue" : "negativeValue");
-                    oSpanGPChange.appendChild(document.createTextNode(bGP ? `+${sVal} GP` : `${sVal} GP`));
                     oSpanGPChange.dataset.value = sVal;
                     
                     oTd.appendChild(oSpanGPChange);
@@ -107,6 +117,9 @@ fetch(`data/Comparison_${sGuild}GuildData.json`)
     .then(data => {
         //Set logo url
         document.getElementById("logo").src = `res/logos/${sGuild}.png`
+
+        //Update page title
+        document.title = `${document.title} - ${sGuild}`;
 
         //Add timestamp
         let [sOldDate, sCurrentDate] = data["t"].split("-");

@@ -117,6 +117,9 @@ fetch(`data/${sGuild}GuildData.json`)
         //Set logo url
         document.getElementById("logo").src = `res/logos/${sGuild}.png`
 
+        //Update page title
+        document.title = `${document.title} - ${sGuild}`;
+
         //Add link for comparison page
         const oLink = document.createElement("a");
         oLink.href = `compare.html?guild=${sGuild}`;
