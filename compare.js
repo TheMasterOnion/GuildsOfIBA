@@ -22,7 +22,7 @@ function parseDataIntoTable(oData) {
 
     //Create the table
     const oTable = document.createElement("table");
-    oTable.style.width = "75%";
+    oTable.classList.add("tableCustomization");
 
     //Create a new row and add all the headers
     const oTr = oTable.insertRow();
@@ -55,7 +55,7 @@ function parseDataIntoTable(oData) {
         }
 
         oTd.addEventListener("click", () => sortTable(oTable, iIndex, fHandleOrder, fHandleValues));
-        oTd.style = "font-weight: bold;text-align: center;cursor: pointer";
+        oTd.classList.add("tableHeaders");
         oTd.appendChild(document.createTextNode(sHeader));
     });
 
@@ -71,11 +71,11 @@ function parseDataIntoTable(oData) {
                 case 1:
                 case 2:
                 case 4:
-                    oTd.style = "text-align: center";
+                    oTd.classList.add("textAlignCenter");
                     oTd.appendChild(document.createTextNode(`${sVal}`));
                     break;
                 case 3:
-                    oTd.style = "text-align: center";
+                    oTd.classList.add("textAlignCenter");
                     const oSpanGPChange = document.createElement("span");
                     const iVal = sVal * 1;
 

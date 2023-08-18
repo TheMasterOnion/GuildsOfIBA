@@ -8,14 +8,35 @@
 </head>
 
 <body>
-  <div class="alignContent">
+  <div id="dDarkBox" onclick="closeProfileCard()" class="darkBox"></div>
+  </div>
+  <div id="dPopup" class="popup">
+    <div class="flex">
+      <div class="flexLeft">
+        <img id="imgProfileClassIcon">
+        <span id="spanProfileName" class="profileCardTitle"></span>
+      </div>
+      <div class="flexRight">
+        <button id="bClose" class="closeButton" onclick="closeProfileCard()">X</button>
+      </div>
+    </div>
+    <div class="detailsDiv">
+      <p><span style="font-weight: bold;">Level: </span><span id="spanProfileLevel"></span></p>
+      <p><span style="font-weight: bold;">Current GP: </span><span id="spanProfileGP"></span></p>
+      <p><span style="font-weight: bold;">Rank: </span><span id="spanProfileRank"></span></p>
+      <p><span style="font-weight: bold;">Wanted Bonus: </span><span id="spanProfileBonus"></span></p>
+      <p><span style="font-weight: bold;">Join Date: </span><span id="spanProfileGuildDate"></span></p>
+      <p><span style="font-weight: bold;">Known Names: </span><span id="spanProfileKnownNames"></span></p>
+    </div>
+  </div>
+  <div class="alignToCenter">
     <img id="logo" src="" />
   </div>
   <div class="aligntTableToolbar">
     <div id="dComparison"></div>
-    <div id="dTimestamp"></div>
+    <div id="dTimestamp" class="timestamp"></div>
   </div>
-  <div id="dGP" class="alignContent tableCustomizations"></div>
+  <div id="dGP" class="alignToCenter guildTableCustomizations"></div>
   <script src="helper.js"></script>
   <script src="details.js"></script>
 </body>

@@ -2,7 +2,7 @@ body {
   background-color: darkgrey;
 }
 
-#dGuildButtons {
+.dGuildButtons {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -11,23 +11,23 @@ body {
   align-items: center;
 }
 
-#dGuildButtons a {
+.dGuildButtons a {
   padding: 5px;
 }
 
-.guildButtons {
+.guildButton {
   width: 263.64px;
   height: 100px;
 }
 
-.alignContent {
+.alignToCenter {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.tableCustomizations table,
+.guildTableCustomizations table,
 td {
   border-collapse: collapse;
   border-radius: 1px;
@@ -47,9 +47,23 @@ td {
   width: 50%;
 }
 
-#dTimestamp {
+.timestamp {
   display: flex;
   justify-content: right;
+}
+
+.tableCustomization {
+  width: 75%;
+}
+
+.tableHeaders {
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.textAlignCenter {
+  text-align: center;
 }
 
 .positiveValue {
@@ -66,3 +80,82 @@ td {
   font-weight: bold;
   color: yellow;
 }
+
+.clickable{
+  cursor: pointer;
+}
+
+/* Begin Profile card CSS */
+.darkBox {
+  visibility: hidden;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 50%;
+  top: 0;
+  left: 0;
+}
+
+.popup {
+  visibility: hidden;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  background-color: lightgray;
+  transform: translate(-50%, -50%);
+  border: black;
+  border-style: ridge;
+  width: 25%
+}
+
+.popupVisible {
+  visibility: visible;
+}
+
+.closeButton {
+  border-color: darkgray;
+  background-color: lightgray;
+  font-weight: bold;
+  font-size: large;
+}
+
+.closeButton:hover {
+  filter: brightness(90%);
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.flexLeft {
+  width: 75%;
+  display: flex;
+  justify-content: start;
+  margin: 5%;
+}
+
+.profileCardTitle {
+  margin-top: auto;
+  margin-left: 5px;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+.flexRight {
+  width: 25%;
+  height: 25px;
+  display: flex;
+  justify-content: end;
+  margin: 1%;
+}
+
+.detailsDiv {
+  margin-left: 5%;
+}
+/* End Profile card CSS */
