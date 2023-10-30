@@ -131,3 +131,14 @@ function closeSearch() {
     document.getElementById("dDarkBox").classList.toggle("popupVisible");
     document.getElementById("dPopup").classList.toggle("popupVisible");
 }
+
+//Add Enter as a possible way to search as well
+document.getElementById("inputSearch").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      //Click the button
+      document.getElementById("buttonSearch").click();
+    }
+  });
+
+//Clear the input value that stays filled
+document.getElementById("inputSearch").value = "";
