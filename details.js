@@ -1,6 +1,9 @@
 //Current guild
 var sGuild = "";
 
+//If there's a parameter for a specific member we store it here to open the popup right away
+var sMember = "";
+
 //Get URL parameters and store them
 function getParams() {
     let sUrlParams = window.location.search.slice(1);
@@ -9,6 +12,9 @@ function getParams() {
         switch (oValues[0]) {
             case "guild":
                 sGuild = oValues[1].toUpperCase();
+                break;
+            case "member":
+                sMember = oValues[1];
                 break;
         }
     });
@@ -183,4 +189,8 @@ fetch(`data/Parsed_${sGuild}GuildData.json`)
 
         //Parse the data into a table
         document.getElementById("dGP").appendChild(parseDataIntoTable(data));
+
+        if (!!sMember) {
+            openProfileCard(data["d"][sMember]);
+        }
     });

@@ -4,12 +4,32 @@
 <head>
   <meta charset="UTF-8" />
   <title>Guilds of IBA</title>
+  <link rel=icon href=icon.png type="image/png">
   <link rel="stylesheet" href="./style.css" />
+  <script src="index.js"></script>
 </head>
 
 <body>
-  <h1>Welcome to Guilds of IBA</h1>
+  <div id="dDarkBox" onclick="closeSearch()" class="darkBox"></div>
+  </div>
+  <div id="dPopup" class="popup">
+    <div class="flex">
+      <div class="flexLeft">
+      </div>
+      <div class="flexRight">
+        <button id="bClose" class="closeButton" onclick="closeSearch()">X</button>
+      </div>
+    </div>
+      <dl id="dlResultsList"></dl>
+  </div>
   <div class="innerDiv">
+    <p class="websiteLogo">
+      <img src="res/logos/GuildsOfIBA.png">
+    </p>
+    <div class="divSearchBar">
+      <input id="inputSearch" placeholder="Search member...">
+      <button onclick="searchMember()">🔍</button>
+    </div>
     <div class="dGuildButtons">
       <a href="details.html?guild=IBA"> <img src="res/logos/IBA.png" class="guildButton" /></a>
       <a href="details.html?guild=BIA"> <img src="res/logos/BIA.png" class="guildButton" /></a>
@@ -21,5 +41,4 @@
     </div>
   </div>
 </body>
-
 </html>

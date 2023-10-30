@@ -5,6 +5,7 @@ html {
 body {
   background-color: gray;
   height: 100%;
+  margin: 0 auto;
 }
 
 .innerDiv {
@@ -12,7 +13,31 @@ body {
   margin: auto;
   width: 90%;
   height: auto;
-  min-height: 100%;
+  min-height: 100vh;
+}
+
+.divSearchBar {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.divSearchBar input {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.websiteLogo {
+  text-align: center;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.websiteLogo img{
+  width: 873.75px;
+  height: 75.75px;
 }
 
 .dGuildButtons {
@@ -98,7 +123,7 @@ td {
   cursor: pointer;
 }
 
-/* Begin Profile card CSS */
+/* Begin popup CSS */
 .darkBox {
   visibility: hidden;
   position: fixed;
@@ -172,4 +197,21 @@ td {
 .detailsDiv {
   margin-left: 5%;
 }
-/* End Profile card CSS */
+
+#dlResultsList {
+  height: 35vh;
+  overflow-y: scroll;
+  padding-left: 10px;
+  word-wrap: normal;
+}
+
+#dlResultsList dd {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#dlResultsList dd a {
+  text-decoration-line: none;
+}
+
+/* End popup CSS */
