@@ -18,7 +18,7 @@ function getParams() {
 function parseDataIntoTable(oData) {
     //Header and json properties
     const aProperties = ["name", "oldGP", "newGP", "gpChange","loggedIn", "notes"];
-    const aHeader = ["Name", "Old GP", "New GP", "GP Change","Logged In?", "Notes"];
+    const aHeader = ["Name", "Old GP", "New GP", "GP Change","Logged In? (Streak)", "Notes"];
 
     //Create the table
     const oTable = document.createElement("table");
@@ -62,6 +62,9 @@ function parseDataIntoTable(oData) {
     //Loop all the members and create rows
     for (const sMember in oData["d"]) {
         const oTr = oTable.insertRow();
+        
+        //Placing it here instead of case 3: so we can access it to add the blue color 
+        const oSpanGPChange = document.createElement("span");
         aProperties.forEach((sProp, i) => {
             const oTd = oTr.insertCell();
             const sVal = oData["d"][sMember][sProp].toString();
@@ -70,13 +73,11 @@ function parseDataIntoTable(oData) {
             switch (i) {
                 case 1:
                 case 2:
-                case 4:
                     oTd.classList.add("textAlignCenter");
                     oTd.appendChild(document.createTextNode(`${sVal}`));
                     break;
                 case 3:
                     oTd.classList.add("textAlignCenter");
-                    const oSpanGPChange = document.createElement("span");
                     const iVal = sVal * 1;
 
                     // If it's less or equal than 0, paint it red
@@ -96,6 +97,24 @@ function parseDataIntoTable(oData) {
                     oSpanGPChange.dataset.value = sVal;
                     
                     oTd.appendChild(oSpanGPChange);
+                    break;
+                case 4:
+                    oTd.classList.add("textAlignCenter");
+                    const sLogoutStreak = oData["d"][sMember]["logoutStreak"].toString()
+
+                    // Grab the logout streak if there's any
+                    if (sVal === "Yes" || (sVal === "No" && sLogoutStreak === "0")) {
+                        oTd.appendChild(document.createTextNode(`${sVal}`));
+                    } else {
+                        oTd.appendChild(document.createTextNode(`${sVal} (${sLogoutStreak})`));
+                    }
+
+                    //Change the color of the GP
+                    if (sLogoutStreak !== "0" && sLogoutStreak !== "1") {
+                        oSpanGPChange.classList.remove("negativeValue");
+                        oSpanGPChange.classList.add("twoWeeksOut");
+                    }
+
                     break;
                 default:
                     oTd.appendChild(document.createTextNode(`${sVal}`));

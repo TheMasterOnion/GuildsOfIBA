@@ -119,6 +119,11 @@ td {
   color: yellow;
 }
 
+.twoWeeksOut {
+  font-weight: bold;
+  color: blue;
+}
+
 .clickable{
   cursor: pointer;
 }
