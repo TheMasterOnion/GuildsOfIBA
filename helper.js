@@ -59,7 +59,7 @@ const oBonus = {
     11: "Star Dazzle",
     12: "C2 Card Spotter",
     13: "Bestone",
-    14: "Wait a Minute",
+    14: "Skilley Skillet",
     15: "Craps",
     16: "Anotha One",
     17: "Wait a Minute 2",
