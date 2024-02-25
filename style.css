@@ -114,6 +114,11 @@ td {
   color: red;
 }
 
+.notEnoughValue {
+  font-weight: bold;
+  color: orange;
+}
+
 .mediumValue {
   font-weight: bold;
   color: yellow;

@@ -80,13 +80,17 @@ function parseDataIntoTable(oData) {
                     oTd.classList.add("textAlignCenter");
                     const iVal = sVal * 1;
 
-                    // If it's less or equal than 0, paint it red
-                    // If it's less or equal than 240, paint it yellow
+                    // Less than 0 paint it red
+                    // Between 0 and 100 (excluding 100) paint it orange
+                    // Between 100 and 250 (exclude 250) paint it yellow
                     // Else, paint it green
                     if (iVal <= 0) {
                         oSpanGPChange.classList.add("negativeValue");
                         oSpanGPChange.appendChild(document.createTextNode(`${sVal} GP`));
-                    } else if (iVal > 0 && iVal <= 240) {
+                    } else if (iVal > 0 && iVal < 100) {
+                        oSpanGPChange.classList.add("notEnoughValue");
+                        oSpanGPChange.appendChild(document.createTextNode(`+${sVal} GP`));
+                    } else if (iVal >= 100 && iVal < 250) {
                         oSpanGPChange.classList.add("mediumValue");
                         oSpanGPChange.appendChild(document.createTextNode(`+${sVal} GP`));
                     } else {
@@ -109,7 +113,7 @@ function parseDataIntoTable(oData) {
                         oTd.appendChild(document.createTextNode(`${sVal} (${sLogoutStreak})`));
                     }
 
-                    //Change the color of the GP
+                    //If there's a logout streak and it's bigger than 1 then remove the red color and paint it blue
                     if (sLogoutStreak !== "0" && sLogoutStreak !== "1") {
                         oSpanGPChange.classList.remove("negativeValue");
                         oSpanGPChange.classList.add("twoWeeksOut");
