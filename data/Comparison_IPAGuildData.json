@@ -1,0 +1,14 @@
+{
+    "d": {
+        "DUMMYID": {
+            "name": "DUMMY",
+            "oldGP": 420,
+            "newGP": 1337,
+            "gpChange": 917,
+            "loggedIn": "Yes",
+            "notes": "Comparison doesn't make sense the guild is new",
+            "logoutStreak": 0
+        }
+    },
+    "t": "1709227092-1709227092"
+}

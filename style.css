@@ -3,6 +3,10 @@ html {
   color: white;
 }
 
+a {
+  color: white;
+}
+
 body {
   background-color: #2c2d31;
   height: 100%;
