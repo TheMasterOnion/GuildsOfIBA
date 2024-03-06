@@ -86,12 +86,21 @@ td {
   padding-top: 10px;
 }
 
-.aligntTableToolbar div {
-  width: 50%;
+.tableToolbarLeftSection {
+  display: flex;
+  width: 33.33333%;
+  justify-content: left;
 }
 
-.timestamp {
+.tableToolbarCenterSection {
   display: flex;
+  width: 33.33333%;
+  justify-content: center;
+}
+
+.tableToolbarRightSection {
+  display: flex;
+  width: 33.33333%;
   justify-content: right;
 }
 

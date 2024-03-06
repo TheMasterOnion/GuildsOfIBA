@@ -83,7 +83,7 @@ function parseDataIntoTable(oData) {
     aHeader.forEach((sHeader, iIndex) => {
         const oTd = oTr.insertCell();
 
-        //For table sorting we need two function, one to handle the default sorting and the other for the values to compare
+        //For table sorting we need two functions, one to handle the default sorting and the other for the values to compare
         var fHandleOrder = function () {
             switch (iIndex) {
                 case 0:
@@ -183,6 +183,9 @@ fetch(`data/Parsed_${sGuild}GuildData.json`)
         oLink.href = `compare.html?guild=${sGuild}`;
         oLink.textContent = "Compare to previous snapshot";
         document.getElementById("dComparison").appendChild(oLink);
+
+        //Add member count
+        document.getElementById("dMemberCount").appendChild(document.createTextNode(`${Object.keys(data["d"]).length} members`));
 
         //Add timestamp
         document.getElementById("dTimestamp").appendChild(document.createTextNode(`Last updated on: ${new Date(data["t"] * 1000).toLocaleDateString()}`));
