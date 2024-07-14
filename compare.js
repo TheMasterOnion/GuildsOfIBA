@@ -14,6 +14,11 @@ function getParams() {
     });
 }
 
+//Navigate back
+function navBack() {
+    window.history.back();
+}
+
 //Parse the information into a table
 function parseDataIntoTable(oData) {
     //Header and json properties

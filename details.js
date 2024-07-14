@@ -20,6 +20,11 @@ function getParams() {
     });
 }
 
+//Navigate back
+function navBack() {
+    window.history.back();
+}
+
 //Add the selected members data to the popup then open it
 function openProfileCard(oMember) {
     //Class icon
