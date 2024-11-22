@@ -10,6 +10,9 @@ function getParams() {
             case "guild":
                 sGuild = oValues[1].toUpperCase();
                 break;
+            case "previous":
+                bPrevious = true;
+                break;
         }
     });
 }
@@ -139,8 +142,21 @@ function parseDataIntoTable(oData) {
 //Get the url params
 getParams();
 
-// Fetch the local json file and parse all the information
-fetch(`data/Comparison_${sGuild}GuildData.json`)
+//Check if it's current week or previous week
+if (typeof bPrevious !== "undefined") {
+    var sJSONLocation = `data/OldComparison_${sGuild}GuildData.json`
+} else {
+    var sJSONLocation = `data/Comparison_${sGuild}GuildData.json`
+
+    //Add the previous week link if it's not already the previous week
+    const oLink = document.createElement("a");
+    oLink.href = `compare.html?guild=${sGuild}&previous`;
+    oLink.textContent = "Previous week";
+    document.getElementById("dPreviousWeek").appendChild(oLink);
+}
+
+// Fetch the json file
+fetch(sJSONLocation)
     .then(res => res.json())
     .then(data => {
         //Set logo url
