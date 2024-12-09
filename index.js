@@ -9,7 +9,8 @@ var aGuilds = [
     "IWA",
     "DIA",
     "FIA",
-    "IRA"
+    "IRA",
+    "IPA"
 ];
 
 //Search for a given member name, loads the guild data then calls searchResults function
