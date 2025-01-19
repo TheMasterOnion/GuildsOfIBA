@@ -10,25 +10,25 @@ const oClass = {
     8: "Barbarian",
     9: "Squire",
     10: "Blood Berserker",
-    11: "Death Bringer",
+    11: "Nope",
     12: "Divine Knight",
-    13: "Royal Guardian",
-    14: "Filler",
+    13: "Nope",
+    14: "Death Bringer",
     15: "Filler",
-    16: "Filler",
+    16: "Royal Guardian",
     17: "Filler",
     18: "Calm Basics",
     19: "Archer",
     20: "Bowman",
     21: "Hunter",
     22: "Siege Breaker",
-    23: "Mayheim",
-    24: "Wind Walker",
+    23: "Nope",
+    24: "Nope",
     25: "Beast Master",
     26: "Filler",
     27: "Filler",
     28: "Filler",
-    29: "Filler",
+    29: "Wind Walker",
     30: "Savvy Basics",
     31: "Mage",
     32: "Wizard",
@@ -36,11 +36,11 @@ const oClass = {
     34: "Elemental Sorcerer",
     35: "Spiritual Monk",
     36: "Bubonic Conjuror",
-    37: "Arcane Cultist",
+    37: "Nope",
     38: "Filler",
     39: "Filler",
-    40: "Filler",
-    41: "Filler",
+    40: "Arcane Cultist",
+    41: "Filler"
 };
 
 const oBonus = {
@@ -62,7 +62,7 @@ const oBonus = {
     14: "Skilley Skillet",
     15: "Craps",
     16: "Anotha One",
-    17: "Wait a Minute 2",
+    17: "Wait a Minute 2"
 };
 
 const oRanks = {
@@ -71,7 +71,7 @@ const oRanks = {
     2: "Golden star",
     3: "Silver star",
     4: "Bronze star",
-    5: "No star",
+    5: "No star"
 };
 
 sStoredDir = "asc";
