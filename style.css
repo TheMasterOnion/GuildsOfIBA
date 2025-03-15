@@ -135,6 +135,17 @@ td {
   cursor: pointer;
 }
 
+.tableHeadersNonClickable {
+  font-weight: bold;
+  text-align: center;
+}
+
+.notesInput {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: gray;
+}
+
 .textAlignCenter {
   text-align: center;
 }

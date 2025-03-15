@@ -1,5 +1,6 @@
 //Current guild
 var sGuild = "";
+var bPrevious = false;
 
 //Get URL parameters and store them
 function getParams() {
@@ -25,8 +26,8 @@ function navBack() {
 //Parse the information into a table
 function parseDataIntoTable(oData) {
     //Header and json properties
-    const aProperties = ["name", "oldGP", "newGP", "gpChange","loggedIn", "notes"];
-    const aHeader = ["Name", "Old GP", "New GP", "GP Change","Logged In? (Streak)", "Notes"];
+    const aProperties = ["name", "oldGP", "newGP", "gpChange", "loggedIn", "notes", "personalNotes"];
+    const aHeader = ["Name", "Old GP", "New GP", "GP Change", "Logged In? (Streak)", "Notes", "Personal Notes"];
 
     //Create the table
     const oTable = document.createElement("table");
@@ -35,11 +36,17 @@ function parseDataIntoTable(oData) {
     //Create a new row and add all the headers
     const oTr = oTable.insertRow();
     aHeader.forEach((sHeader, iIndex) => {
+        //Skip notes if in previous week
+        if (iIndex == 6 && bPrevious) {
+            return;
+        }
+
         const oTd = oTr.insertCell();
 
-        //For table sorting we need two function, one to handle the default sorting and the other for the values to compare
-        var fHandleOrder = function () {
-            switch(iIndex){
+        //For table sorting we need two functions, one to handle the default sorting and the other for the values to compare
+        //Personal notes don't have sorting
+        var fHandleOrder = function (iIndex) {
+            switch (iIndex) {
                 case 1:
                 case 2:
                 case 3:
@@ -62,20 +69,38 @@ function parseDataIntoTable(oData) {
             }
         }
 
-        oTd.addEventListener("click", () => sortTable(oTable, iIndex, fHandleOrder, fHandleValues));
-        oTd.classList.add("tableHeaders");
+        //If it corresponds to the index of the personal notes, just skip the click listener
+        if (iIndex != 6) {
+            oTd.addEventListener("click", () => sortTable(oTable, iIndex, fHandleOrder, fHandleValues));
+            oTd.classList.add("tableHeaders");
+        } else {
+            oTd.classList.add("tableHeadersNonClickable");
+        }
+
         oTd.appendChild(document.createTextNode(sHeader));
     });
 
     //Loop all the members and create rows
     for (const sMember in oData["d"]) {
         const oTr = oTable.insertRow();
-        
-        //Placing it here instead of case 3: so we can access it to add the blue color 
+
+        //Placing it here instead of case 3: so we can access it to add the blue color
         const oSpanGPChange = document.createElement("span");
         aProperties.forEach((sProp, i) => {
+
+            //Skip notes if in previous week
+            if (i == 6 && bPrevious) {
+                return;
+            }
+
             const oTd = oTr.insertCell();
-            const sVal = oData["d"][sMember][sProp].toString();
+
+            //Personal notes don't start with a value, it's loaded and populated afterwards
+            if (sProp !== "personalNotes") {
+                var sVal = oData["d"][sMember][sProp].toString();
+            } else {
+                var sVal = "";
+            }
 
             //Depending on the index we want the content to be slighly formatted
             switch (i) {
@@ -107,7 +132,7 @@ function parseDataIntoTable(oData) {
                     }
 
                     oSpanGPChange.dataset.value = sVal;
-                    
+
                     oTd.appendChild(oSpanGPChange);
                     break;
                 case 4:
@@ -128,6 +153,23 @@ function parseDataIntoTable(oData) {
                     }
 
                     break;
+                case 6:
+                    const oInput = document.createElement("input");
+                    oInput.type = "text";
+                    oInput.classList.add("notesInput");
+                    oInput.id = `input${sMember}`;
+
+                    //Add event to save (or delete) the note on focus out
+                    oInput.addEventListener("focusout", (oEvent) => {
+                        if (oEvent.target.value) {
+                            updatePersonalNote(oEvent.target.id.slice(5), oEvent.target.value);
+                        } else {
+                            deletePersonalNote(oEvent.target.id.slice(5));
+                        }
+
+                    });
+                    oTd.appendChild(oInput);
+                    break;
                 default:
                     oTd.appendChild(document.createTextNode(`${sVal}`));
                     break;
@@ -143,10 +185,10 @@ function parseDataIntoTable(oData) {
 getParams();
 
 //Check if it's current week or previous week
-if (typeof bPrevious !== "undefined") {
-    var sJSONLocation = `data/OldComparison_${sGuild}GuildData.json`
+if (bPrevious) {
+    var sJSONLocation = `data/OldComparison_${sGuild}GuildData.json`;
 } else {
-    var sJSONLocation = `data/Comparison_${sGuild}GuildData.json`
+    var sJSONLocation = `data/Comparison_${sGuild}GuildData.json`;
 
     //Add the previous week link if it's not already the previous week
     const oLink = document.createElement("a");
@@ -171,4 +213,62 @@ fetch(sJSONLocation)
 
         //Parse the data into a table
         document.getElementById("dComparison").appendChild(parseDataIntoTable(data));
+
+        //After we load everything we create/load the DB
+        //It's skipped if it's the previous week
+        if (!bPrevious) {
+            const oRequestDB = indexedDB.open("IBA_IndexedDB", 1);
+
+            //Build the schema if the version of the DB changed or it's a first run
+            oRequestDB.onupgradeneeded = function (oEvent) {
+                //Add the DB reference to the global variable
+                oDB = oEvent.target.result;
+
+                //UUID as key, and guild as an index for retrieving the notes
+                const oObjStore = oDB.createObjectStore("personalnotes", { keyPath: "uuid" });
+                oObjStore.createIndex("guild", "guild", { unique: false });
+            };
+
+            //Error loading the IndexDB
+            oRequestDB.onerror = function (event) {
+                console.error('Error opening database:', event.target.errorCode);
+            };
+
+            //IndexDB was loaded successfully
+            oRequestDB.onsuccess = function (oEvent) {
+                //Add the DB reference to the global variable
+                oDB = oEvent.target.result;
+
+                //Grab all the notes for the current loaded guild
+                const oRequest = oDB.transaction("personalnotes", "readonly").objectStore("personalnotes").index("guild").openCursor(IDBKeyRange.only(sGuild));
+
+                oRequest.onsuccess = (oEvent) => {
+                    const oCursor = oEvent.target.result;
+
+                    if (oCursor) {
+                        const oInput = document.getElementById(`input${oCursor.value.uuid}`);
+
+                        if (!oInput) {
+                            deletePersonalNote(oCursor.value.uuid);
+                        } else {
+                            oInput.value = oCursor.value.note;
+                        }
+
+                        oCursor.continue();
+                    }
+                };
+            }
+        }
     });
+
+//DB Object
+let oDB;
+
+//Add new personal note
+updatePersonalNote = function (sUuid, sNote) {
+    const oRequest = oDB.transaction("personalnotes", "readwrite").objectStore("personalnotes").put({ uuid: sUuid, guild: sGuild, note: sNote });
+}
+
+deletePersonalNote = function (sUuid) {
+    const oRequest = oDB.transaction("personalnotes", "readwrite").objectStore("personalnotes").delete(sUuid);
+}
