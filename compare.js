@@ -31,7 +31,7 @@ function parseDataIntoTable(oData) {
 
     //Create the table
     const oTable = document.createElement("table");
-    oTable.classList.add("tableCustomization");
+    oTable.classList.add("tableCompCustomization");
 
     //Create a new row and add all the headers
     const oTr = oTable.insertRow();
@@ -76,6 +76,26 @@ function parseDataIntoTable(oData) {
         } else {
             oTd.classList.add("tableHeadersNonClickable");
         }
+		
+		//Add column specific classes
+		switch (iIndex) {
+			case 0:
+				oTd.classList.add("tableHeaderName");
+				break;
+			case 1:
+			case 2:
+			case 3:
+				oTd.classList.add("tableHeaderGP");
+				break;
+			case 4:
+				oTd.classList.add("tableHeaderLogin");
+				break;
+			case 5:
+			case 6:
+				oTd.classList.add("tableHeaderNotes");
+				oTd.classList.add("tableHeaderNotes");
+				break;
+		}
 
         oTd.appendChild(document.createTextNode(sHeader));
     });
@@ -177,7 +197,11 @@ function parseDataIntoTable(oData) {
         });
     };
 
-    return oTable;
+    //Due to some CSS for scrollbars this table needs to return in a div
+    const oDiv = document.createElement("div");
+    oDiv.appendChild(oTable);
+
+    return oDiv;
 
 }
 

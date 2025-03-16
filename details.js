@@ -81,7 +81,7 @@ function parseDataIntoTable(oData) {
 
     //Create the table
     const oTable = document.createElement("table");
-    oTable.classList.add("tableCustomization");
+    oTable.classList.add("tableMembersCustomization");
 
     //Create a new row and add all the headers
     const oTr = oTable.insertRow();

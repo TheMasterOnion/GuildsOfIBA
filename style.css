@@ -91,6 +91,11 @@ body {
   background-color: rgb(35, 36, 41);
 }
 
+.guildTableCustomizations div {
+    overflow-x: scroll;
+    width: 98%;
+}
+
 .guildTableCustomizations table,
 td {
   border-collapse: collapse;
@@ -99,9 +104,10 @@ td {
   border-style: solid;
 }
 
-.aligntTableToolbar {
+.alignTableToolbar {
   margin: 0 auto;
-  width: 75%;
+  width: 98%;
+  max-width: 1600px;
   display: flex;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -109,24 +115,33 @@ td {
 
 .tableToolbarLeftSection {
   display: flex;
-  width: 33.33333%;
+  width: 40%;
   justify-content: left;
 }
 
 .tableToolbarCenterSection {
   display: flex;
-  width: 33.33333%;
+  width: 20%;
   justify-content: center;
 }
 
 .tableToolbarRightSection {
   display: flex;
-  width: 33.33333%;
+  width: 40%;
   justify-content: right;
 }
 
-.tableCustomization {
-  width: 75%;
+.tableMembersCustomization {
+  max-width: 1600px;
+  width: 98%;
+  margin: 0 auto;
+}
+
+.tableCompCustomization {
+  min-width: 1280px;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .tableHeaders {
@@ -138,6 +153,22 @@ td {
 .tableHeadersNonClickable {
   font-weight: bold;
   text-align: center;
+}
+
+.tableHeaderName {
+    width: 125px;
+}
+
+.tableHeaderGP {
+    width: 90px;
+}
+
+.tableHeaderLogin {
+    width: 150px;
+}
+
+.tableHeaderNotes {
+    width: 275px;
 }
 
 .notesInput {
